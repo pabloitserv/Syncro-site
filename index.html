@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR" ng-app="syncro">
+  <head>
+    <meta charset="utf-8">
+    <title>Syncro - sistema de busca de corridas</title>
+    <link rel="stylesheet" href="css/bootstrap.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="css/estilo.css" media="screen" title="no title" charset="utf-8">
+
+    <script src="lib/angular/angular.js"></script>
+    <script src="js/app.js"></script>
+
+  </head>
+  <body>
+
+  <header>
+    <div class="jumbotron">
+      <div class="jumbo">
+        <img src="img/logo3.png" class=""/>
+        <input type="date" class="form-control campos" placeholder="Data"/>
+        <select class="form-control campos">
+          <option value="">Placa - modelo</option>
+        </select>
+        <button type="button" class="btn btn-primary btn-block campos" name="button">Buscar</button>
+    </div>
+  </div>
+  </header>
+
+  <section ng-controller="syncroCtrl">
+    <div class="">
+      <table class="table table-striped">
+        <tr>
+          <th>Início</th>
+          <th>Fim</th>
+          <th>Placa</th>
+          <th>Km inicial</th>
+          <th>Km final</th>
+          <th>Km total</th>
+          <th>Instalador</th>
+        </tr>
+        <tr ng-repeat="info in infos">
+          <td>{{info.date_i}}</td>
+          <td>{{info.data_f}}</td>
+          <td>{{info.placa}}</td>
+          <td>{{info.kmi}}</td>
+          <td>{{info.kmf}}</td>
+          <td>{{info.kmf - info.kmi}}</td>
+          <td>{{info.instalador}}</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  </body>
+</html>

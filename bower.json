@@ -1,0 +1,33 @@
+{
+  "name": "syncrosite",
+  "authors": [
+    "Pablo Garcia <pablo.garcia@itserv.com.br>"
+  ],
+  "description": "Sitema de retorno dos cadastro feito no app.",
+  "main": "index.html",
+  "keywords": [
+    "Html5",
+    "css3",
+    "Bootstrap",
+    "Angular",
+    "Bower",
+    "Express",
+    "JavaScript",
+    "Jquery",
+    "..."
+  ],
+  "license": "MIT",
+  "homepage": "www.syncro.itserv.com.br",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "lib/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "express": "^4.13.4"
+  }
+}
