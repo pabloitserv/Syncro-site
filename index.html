@@ -1,54 +1,136 @@
 <!DOCTYPE html>
 <html lang="pt-BR" ng-app="syncro">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Syncro - sistema de busca de corridas</title>
+
     <link rel="stylesheet" href="css/bootstrap.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="css/estilo.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular/angular-route.js"></script>
+
     <script src="js/app.js"></script>
 
+    <script src="js/controllers/syncroCtrl.js"></script>
+
+    <script src="js/services/services.js"></script>
+
+    <script src="js/config/config.const.js"></script>
+
+    <script src="js/routes/routes.js"></script>
+
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <script src="lib/jquery.maskedinput/dist/jquery.maskedinput.js"></script>
+
+    <script>
+      $(document).ready(function(){
+        $('#inicio').mask('9999-99-99');
+        $('#termino').mask('9999-99-99');
+      });
+    </script>
+
   </head>
-  <body>
+  <body ng-controller="syncroCtrl">
+    <header>
+      <div class="container">
 
-  <header>
-    <div class="jumbotron">
-      <div class="jumbo">
-        <img src="img/logo3.png" class=""/>
-        <input type="date" class="form-control campos" placeholder="Data"/>
-        <select class="form-control campos">
-          <option value="">Placa - modelo</option>
-        </select>
-        <button type="button" class="btn btn-primary btn-block campos" name="button">Buscar</button>
-    </div>
-  </div>
-  </header>
+        <div class="jumbotron">
+          <div class="row">
+            <div class="col-md-6">
+              <img src="img/logo3.png" alt="logo" class="img-responsive center-block" />
+            </div>
+            <form class="" name="formulario">
+            <div class="col-md-3">
 
-  <section ng-controller="syncroCtrl">
-    <div class="">
-      <table class="table table-striped">
-        <tr>
-          <th>Início</th>
-          <th>Fim</th>
-          <th>Placa</th>
-          <th>Km inicial</th>
-          <th>Km final</th>
-          <th>Km total</th>
-          <th>Instalador</th>
-        </tr>
-        <tr ng-repeat="info in infos">
-          <td>{{info.date_i}}</td>
-          <td>{{info.data_f}}</td>
-          <td>{{info.placa}}</td>
-          <td>{{info.kmi}}</td>
-          <td>{{info.kmf}}</td>
-          <td>{{info.kmf - info.kmi}}</td>
-          <td>{{info.instalador}}</td>
-        </tr>
-      </table>
-    </div>
-  </section>
+                    <span>Data inicio:<input type="date" class="form-control" id="inicio" ng-model="inicio"></span>
+                    <span>Data Término:<input type="date" class="form-control" id="termino" ng-model="termino"></span>
+
+                    <select class="form-control margem" ng-model="car" ng-options="veiculo.Placa+' - '+veiculo.Modelo for veiculo in lista track by veiculo.IdVeiculo">
+                      <option value="">Placa - Modelo</option>
+                    </select>
+                <button type="button" class="btn btn-primary btn-block text-center margem" name="button" ng-click="search()">
+                  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;Buscar
+                </button>
+            </div>
+            <div class="col-md-3">
+            </div>
+          </form>
+          </div>
+        </div>
+        <hr class="style-two" />
+
+        <h3 class="text-center">Informções da busca</h3>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3 center-block">
+                <table class="table table-responsive">
+                  <tr>
+                    <th>Km extra rota</th>
+                  </tr>
+                  <tr>
+                    <td></td>
+                  </tr>
+                </table>
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="col-md-6 borda-lateral">
+              <table class="table table-responsive">
+                <caption class="text-center">Início da corrida</caption>
+                <tr>
+                  <th>Data</th>
+                  <th>Veiculo</th>
+                  <th>Instalador</th>
+                  <th>Km</th>
+                </tr>
+                <tr ng-repeat="busca in dados">
+                  <td>{{busca.data}}</td>
+                  <td>{{busca.veiculo}}</td>
+                  <td>{{busca.instalador}}</td>
+                  <td>{{busca.km}}</td>
+                </tr>
+                <tr>
+                  <td colspan="4"><img src="img/logo3.png" class="img-responsive center-block" /></td>
+                </tr>
+              </table>
+            </div>
+
+            <div class="col-md-6">
+              <table class="table table-responsive">
+                <caption class="text-center">Final da corrida</caption>
+                <tr>
+                  <th>Data</th>
+                  <th>Veiculo</th>
+                  <th>Instalador</th>
+                  <th>Km</th>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td colspan="4"><img src="img/logo3.png" class="img-responsive center-block" /></td>
+                </tr>
+              </table>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </header>
 
   </body>
 </html>
