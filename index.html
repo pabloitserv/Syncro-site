@@ -7,11 +7,12 @@
 
     <link rel="stylesheet" href="css/bootstrap.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="css/estilo.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular/angular-route.js"></script>
 
@@ -33,16 +34,16 @@
 
     <script>
       $(document).ready(function(){
-        $('#inicio').mask('9999-99-99');
-        $('#termino').mask('9999-99-99');
+      $('#inicio').mask('99/99/9999', {reverse: true});
+       $('#termino').mask('99/99/9999');
       });
     </script>
 
   </head>
   <body ng-controller="syncroCtrl">
-    <header>
       <div class="container">
 
+      <header>
         <div class="jumbotron">
           <div class="row">
             <div class="col-md-6">
@@ -61,76 +62,83 @@
                   <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;Buscar
                 </button>
             </div>
+          </header>
+
             <div class="col-md-3">
             </div>
           </form>
           </div>
         </div>
+
         <hr class="style-two" />
 
-        <h3 class="text-center">Informções da busca</h3>
+        <h3 class="text-center">Resumo da busca</h3>
         <div class="container">
-          <div class="row">
-            <div class="col-md-3 center-block">
-                <table class="table table-responsive">
-                  <tr>
-                    <th>Km extra rota</th>
-                  </tr>
-                  <tr>
-                    <td></td>
-                  </tr>
-                </table>
-            </div>
-          </div>
           <div class="row">
 
             <div class="col-md-6 borda-lateral">
-              <table class="table table-responsive">
+              <table class="table table-responsive table-striped">
                 <caption class="text-center">Início da corrida</caption>
                 <tr>
+                  <th></th>
                   <th>Data</th>
                   <th>Veiculo</th>
                   <th>Instalador</th>
                   <th>Km</th>
                 </tr>
-                <tr ng-repeat="busca in dados">
-                  <td>{{busca.data}}</td>
-                  <td>{{busca.veiculo}}</td>
-                  <td>{{busca.instalador}}</td>
-                  <td>{{busca.km}}</td>
+                <!-- ng-repeat="busca in dados | orderBy: '-dataIn'"-->
+                <tr ng-repeat="busca in dados | orderBy: '-dataIn'">
+                  <td><button type="button" class="btn btn-info btn-xs" ng-click="coletaDados(busca)">info</button></td>
+                  <td><b>inicio</b></td>
+                  <td>{{busca.dataIn | date: 'dd/MM/yyyy - HH:mm'}}</td>
+                  <td>{{busca.veiculoIn}}</td>
+                  <td>{{busca.instalador | limitTo:8}}</td>
+                  <td>{{busca.kmIn}}</td>
                 </tr>
-                <tr>
-                  <td colspan="4"><img src="img/logo3.png" class="img-responsive center-block" /></td>
-                </tr>
-              </table>
+                </table>
             </div>
 
             <div class="col-md-6">
-              <table class="table table-responsive">
+              <table class="table table-responsive table-striped">
                 <caption class="text-center">Final da corrida</caption>
                 <tr>
+                  <th></th>
                   <th>Data</th>
                   <th>Veiculo</th>
                   <th>Instalador</th>
                   <th>Km</th>
                 </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td colspan="4"><img src="img/logo3.png" class="img-responsive center-block" /></td>
+                <tr ng-repeat="busca in dadosT | orderBy: '-dataOut'">
+                  <td><button type="button" class="btn btn-info btn-xs" ng-click="coletaDados(busca)">info</button></td>
+                  <td><b>termino</b></td>
+                  <td>{{busca.dataOut | date: 'dd/MM/yyyy - HH:mm'}}</td>
+                  <td>{{busca.veiculoOut}}</td>
+                  <td>{{busca.instalador | limitTo: 8}}</td>
+                  <td>{{busca.kmOut}}</td>
                 </tr>
               </table>
             </div>
 
           </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <table class="table table-responsive table-striped"  ng-repeat="infos in info">
+                <caption class="text-center">Dados da corrida</caption>
+                <tr>
+                  <td>{{infos.partida}}{{infos.chegada}}</td>
+                  <td>{{infos.kmPartida}}{{infos.kmChegada}}</td>
+                </tr>
+                <tr>
+                  <td colspan="2">{{infos.imagenIn}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
         </div>
 
       </div>
-    </header>
 
   </body>
 </html>

@@ -15,8 +15,10 @@ angular.module('syncro')
 
 .factory('buscarCorrida', function($http) {
  return {
-    getCorridas: function(_parametros){
-      var _url=  'http://localhost:3000/run?car='+_parametros;
+    getCorridas: function(inicio, termino, idCar){
+      console.log(inicio,termino,idCar);
+      //http://localhost:3000/run?$gte="2016-06-21"&$lte="2016-06-22"
+      var _url= 'http://104.236.110.237:3000/run?$gte="'+inicio+'"&$lte="'+termino+'"&carro='+idCar+'';
       console.log(_url);
 
        return $http.get(_url).then(function(response){
