@@ -27,10 +27,11 @@ $scope.search = function(){
  var idCar = $scope.car.IdVeiculo;
 
  buscarCorrida.getCorridas(inicio,termino,idCar).then(function(corridas){
-  console.log(corridas);
+  //console.log(corridas);
 
   //  if (corridas != null)
   var cont = 0;
+
   $scope.dados = [];
   $scope.dadosT = [];
   for (var i = 0; i < corridas.data.length; i++) {
@@ -43,18 +44,19 @@ $scope.search = function(){
         veiculoIn: $scope.car.Placa+" - "+$scope.car.Modelo,
         instalador: corridas.data[i].user.name,
         kmIn: corridas.data[i].mileage,
-        fotoIn: corridas.data[i].photo
+        fotoIn: corridas.data[i].photo,
+        index: cont
         //corridas.data[i].deviceStartDate.substring(0, 10)+" - "+corridas.data[i].deviceStartDate.substring(11, 16)
       });
-    cont++;
+    //cont++;
     }
     if(corridas.data[i].open == false){
       $scope.dadosT.push ({
       dataOut: corridas.data[i].deviceStartDate,
       veiculoOut: $scope.car.Placa+" - "+$scope.car.Modelo,
-      instalador: corridas.data[i].user.name,
-      kmOut: corridas.data[i].mileage
-      //fotoIn: corridas.data[i].photo
+      kmOut: corridas.data[i].mileage,
+      index: cont,
+      fotoOut: corridas.data[i].photo
     });
     cont++;
     }
@@ -66,24 +68,22 @@ $scope.search = function(){
   };
 
 $scope.coletaDados = function(busca){
+  var comeco = busca;
+  var posicao = comeco.index;
+  var final = $scope.dadosT[posicao];
 
-  $scope.info=[];
+  $scope.somaKm = final.kmOut - comeco.kmIn;
+  $scope.extra = comeco.kmIn - final.kmOut;
 
-  console.log(busca);
-  $scope.info.push({
-    partida: busca.dataIn,
-    kmPartida: busca.kmIn,
-    instalador: busca.instalador,
-    imagenIn: busca.fotoIn,
 
-    chegada: busca.dataOut,
-    instalador: busca.instalador,
-    kmChegada: busca.kmOut,
-    imagenOut: busca.fotoOut
-  });
+  $scope.foto = [{
+    imagen1: comeco.fotoIn,
+    imagen2: final.fotoOut,
+    km1: comeco.kmIn,
+    km2: final.kmOut
+  }];
+
 };
-
-
 
 
 });

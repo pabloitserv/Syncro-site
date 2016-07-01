@@ -81,18 +81,17 @@
                 <caption class="text-center">Início da corrida</caption>
                 <tr>
                   <th></th>
+                  <th>Instalador</th>
                   <th>Data</th>
                   <th>Veiculo</th>
-                  <th>Instalador</th>
                   <th>Km</th>
                 </tr>
-                <!-- ng-repeat="busca in dados | orderBy: '-dataIn'"-->
-                <tr ng-repeat="busca in dados | orderBy: '-dataIn'">
+                <!-- ng-repeat="busca in dados | orderBy: '-dataIn'" <td><button type="button" class="btn btn-info btn-xs" ng-click="coletaDados(busca)">info</button></td>-->
+                <tr ng-repeat="busca in dados">
                   <td><button type="button" class="btn btn-info btn-xs" ng-click="coletaDados(busca)">info</button></td>
-                  <td><b>inicio</b></td>
+                  <td>{{busca.instalador | limitTo:8}}</td>
                   <td>{{busca.dataIn | date: 'dd/MM/yyyy - HH:mm'}}</td>
                   <td>{{busca.veiculoIn}}</td>
-                  <td>{{busca.instalador | limitTo:8}}</td>
                   <td>{{busca.kmIn}}</td>
                 </tr>
                 </table>
@@ -102,18 +101,13 @@
               <table class="table table-responsive table-striped">
                 <caption class="text-center">Final da corrida</caption>
                 <tr>
-                  <th></th>
                   <th>Data</th>
                   <th>Veiculo</th>
-                  <th>Instalador</th>
                   <th>Km</th>
                 </tr>
-                <tr ng-repeat="busca in dadosT | orderBy: '-dataOut'">
-                  <td><button type="button" class="btn btn-info btn-xs" ng-click="coletaDados(busca)">info</button></td>
-                  <td><b>termino</b></td>
+                <tr ng-repeat="busca in dadosT">
                   <td>{{busca.dataOut | date: 'dd/MM/yyyy - HH:mm'}}</td>
                   <td>{{busca.veiculoOut}}</td>
-                  <td>{{busca.instalador | limitTo: 8}}</td>
                   <td>{{busca.kmOut}}</td>
                 </tr>
               </table>
@@ -122,15 +116,24 @@
           </div>
 
           <div class="row">
-            <div class="col-md-6">
-              <table class="table table-responsive table-striped"  ng-repeat="infos in info">
+            <div class="col-md-12 jumbotron">
+              <table class="table table-responsive table-striped">
                 <caption class="text-center">Dados da corrida</caption>
                 <tr>
-                  <td>{{infos.partida}}{{infos.chegada}}</td>
-                  <td>{{infos.kmPartida}}{{infos.kmChegada}}</td>
+                  <td><h4>{{'Km da rota: '+somaKm+' Quilômetro(s)'}}</h4></td>
+                  <td><h4>{{'Km extra rota: '+extra+' Quilômetro(s)'}}</h4></td>
                 </tr>
-                <tr>
-                  <td colspan="2">{{infos.imagenIn}}</td>
+                <tr  ng-repeat="fotos in foto">
+                  <td>
+                    <h4 class="text-center">Imagen inicio</h4>
+                    <img src="{{fotos.imagen1}}" class="img-thumbnail center-block img-km" />
+                    <p class="text-center"><b>Km : {{fotos.km1}}</b></p>
+                  </td>
+                  <td>
+                    <h4 class="text-center">Imagen termino</h4>
+                    <img src="{{fotos.imagen2}}" class="img-thumbnail center-block img-km" />
+                    <p class="text-center"><b>Km : {{fotos.km2}}</b></p>
+                  </td>
                 </tr>
               </table>
             </div>
