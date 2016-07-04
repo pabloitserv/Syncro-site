@@ -34,10 +34,13 @@ $scope.search = function(){
 
   $scope.dados = [];
   $scope.dadosT = [];
+
+
   for (var i = 0; i < corridas.data.length; i++) {
   //  var deviceDate =corridas.data[i].deviceStartDate.substring(0,10);
   //alert(deviceDate);
   //if( (deviceDate >= inicio && deviceDate <= termino) && corridas.data[i].open == true)
+
     if(corridas.data[i].open == true){
       $scope.dados.push ({
         dataIn: corridas.data[i].deviceStartDate,
@@ -48,6 +51,7 @@ $scope.search = function(){
         index: cont
         //corridas.data[i].deviceStartDate.substring(0, 10)+" - "+corridas.data[i].deviceStartDate.substring(11, 16)
       });
+
     //cont++;
     }
     if(corridas.data[i].open == false){
@@ -64,8 +68,8 @@ $scope.search = function(){
 
 
 
-    });
-  };
+ });
+};
 
 $scope.coletaDados = function(busca){
   var comeco = busca;
@@ -73,8 +77,12 @@ $scope.coletaDados = function(busca){
   var final = $scope.dadosT[posicao];
 
   $scope.somaKm = final.kmOut - comeco.kmIn;
-  $scope.extra = comeco.kmIn - final.kmOut;
 
+  if(posicao>0){
+    $scope.kmExtra =comeco.kmIn - teste.kmOut;
+  }else{
+    $scope.kmExtra =0;
+  }
 
   $scope.foto = [{
     imagen1: comeco.fotoIn,

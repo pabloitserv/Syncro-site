@@ -92,7 +92,7 @@
                   <td>{{busca.instalador | limitTo:8}}</td>
                   <td>{{busca.dataIn | date: 'dd/MM/yyyy - HH:mm'}}</td>
                   <td>{{busca.veiculoIn}}</td>
-                  <td>{{busca.kmIn}}</td>
+                  <td class="kmExtraIn">{{busca.kmIn}}</td>
                 </tr>
                 </table>
             </div>
@@ -108,7 +108,7 @@
                 <tr ng-repeat="busca in dadosT">
                   <td>{{busca.dataOut | date: 'dd/MM/yyyy - HH:mm'}}</td>
                   <td>{{busca.veiculoOut}}</td>
-                  <td>{{busca.kmOut}}</td>
+                  <td class="kmExtraOut">{{busca.kmOut}}</td>
                 </tr>
               </table>
             </div>
@@ -121,7 +121,7 @@
                 <caption class="text-center">Dados da corrida</caption>
                 <tr>
                   <td><h4>{{'Km da rota: '+somaKm+' Quilômetro(s)'}}</h4></td>
-                  <td><h4>{{'Km extra rota: '+extra+' Quilômetro(s)'}}</h4></td>
+                  <td><h4>{{'Km extra rota: '+kmExtra+' Quilômetro(s)'}}</h4></td>
                 </tr>
                 <tr  ng-repeat="fotos in foto">
                   <td>
