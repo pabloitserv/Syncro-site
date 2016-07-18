@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR" ng-app="syncro">
   <head>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Syncro - sistema de busca de corridas</title>
@@ -19,129 +20,43 @@
     <script src="js/app.js"></script>
 
     <script src="js/controllers/syncroCtrl.js"></script>
+    <script src="js/controllers/loginCtrl.js"></script>
 
     <script src="js/services/services.js"></script>
 
     <script src="js/config/config.const.js"></script>
-
-    <script src="js/routes/routes.js"></script>
 
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
     <script src="lib/jquery/dist/jquery.js"></script>
     <script src="lib/jquery.maskedinput/dist/jquery.maskedinput.js"></script>
+</head>
 
-    <script>
-      $(document).ready(function(){
-      $('#inicio').mask('99/99/9999', {reverse: true});
-       $('#termino').mask('99/99/9999');
-      });
-    </script>
-
-  </head>
-  <body ng-controller="syncroCtrl">
-      <div class="container">
-
-      <header>
-        <div class="jumbotron">
-          <div class="row">
-            <div class="col-md-6">
-              <img src="img/logo3.png" alt="logo" class="img-responsive center-block" />
-            </div>
-            <form class="" name="formulario">
-            <div class="col-md-3">
-
-                    <span>Data inicio:<input type="date" class="form-control" id="inicio" ng-model="inicio"></span>
-                    <span>Data Término:<input type="date" class="form-control" id="termino" ng-model="termino"></span>
-
-                    <select class="form-control margem" ng-model="car" ng-options="veiculo.Placa+' - '+veiculo.Modelo for veiculo in lista track by veiculo.IdVeiculo">
-                      <option value="">Placa - Modelo</option>
-                    </select>
-                <button type="button" class="btn btn-primary btn-block text-center margem" name="button" ng-click="search()">
-                  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;Buscar
-                </button>
-            </div>
-          </header>
-
-            <div class="col-md-3">
-            </div>
-          </form>
-          </div>
-        </div>
-
-        <hr class="style-two" />
-
-        <h3 class="text-center">Resumo da busca</h3>
-        <div class="container">
-          <div class="row">
-
-            <div class="col-md-6 borda-lateral">
-              <table class="table table-responsive table-striped">
-                <caption class="text-center">Início da corrida</caption>
-                <tr>
-                  <th></th>
-                  <th>Instalador</th>
-                  <th>Data</th>
-                  <th>Veiculo</th>
-                  <th>Km</th>
-                </tr>
-                <!-- ng-repeat="busca in dados | orderBy: '-dataIn'" <td><button type="button" class="btn btn-info btn-xs" ng-click="coletaDados(busca)">info</button></td>-->
-                <tr ng-repeat="busca in dados">
-                  <td><button type="button" class="btn btn-info btn-xs" ng-click="coletaDados(busca)">info</button></td>
-                  <td>{{busca.instalador | limitTo:8}}</td>
-                  <td>{{busca.dataIn | date: 'dd/MM/yyyy - HH:mm'}}</td>
-                  <td>{{busca.veiculoIn}}</td>
-                  <td class="kmExtraIn">{{busca.kmIn}}</td>
-                </tr>
-                </table>
-            </div>
-
-            <div class="col-md-6">
-              <table class="table table-responsive table-striped">
-                <caption class="text-center">Final da corrida</caption>
-                <tr>
-                  <th>Data</th>
-                  <th>Veiculo</th>
-                  <th>Km</th>
-                </tr>
-                <tr ng-repeat="busca in dadosT">
-                  <td>{{busca.dataOut | date: 'dd/MM/yyyy - HH:mm'}}</td>
-                  <td>{{busca.veiculoOut}}</td>
-                  <td class="kmExtraOut">{{busca.kmOut}}</td>
-                </tr>
-              </table>
-            </div>
-
-          </div>
-
-          <div class="row">
-            <div class="col-md-12 jumbotron">
-              <table class="table table-responsive table-striped">
-                <caption class="text-center">Dados da corrida</caption>
-                <tr>
-                  <td><h4>{{'Km da rota: '+somaKm+' Quilômetro(s)'}}</h4></td>
-                  <td><h4>{{'Km extra rota: '+kmExtra+' Quilômetro(s)'}}</h4></td>
-                </tr>
-                <tr  ng-repeat="fotos in foto">
-                  <td>
-                    <h4 class="text-center">Imagen inicio</h4>
-                    <img src="{{fotos.imagen1}}" class="img-thumbnail center-block img-km" />
-                    <p class="text-center"><b>Km : {{fotos.km1}}</b></p>
-                  </td>
-                  <td>
-                    <h4 class="text-center">Imagen termino</h4>
-                    <img src="{{fotos.imagen2}}" class="img-thumbnail center-block img-km" />
-                    <p class="text-center"><b>Km : {{fotos.km2}}</b></p>
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </div>
-
-        </div>
-
+  <body ng-controller="loginCtrl">
+    <div class="container">
+      <div class="center-block">
+        <form class="painel">
+          <table class="table">
+            <tr>
+              <td colspan="2" align="center">
+                <img src="img/logo3.png" alt="" />
+              </td>
+            </tr>
+            <tr>
+              <td>Usuário:</td>
+              <td><input type="text" ng-model="usuario" class="form-control"></td>
+            </tr>
+            <tr>
+              <td>Senha:</td>
+              <td><input type="password" ng-model="senha" class="form-control"></td>
+            </tr>
+            <tr>
+              <td colspan="2"><button type="button" class="btn btn-primary btn-block" ng-click="validarUsuario()">Logar</button></td>
+            </tr>
+          </table>
+        </form>
       </div>
-
+    </div>
   </body>
 </html>

@@ -1,6 +1,4 @@
 angular.module('syncro')
-
-
 .controller("syncroCtrl", function($scope, $http, veiculoService, buscarCorrida, $filter){
 
   veiculoService.getVeiculos().then(function(carros){
@@ -21,15 +19,12 @@ var formataData =  function(data){
 };
 
 $scope.search = function(){
-
  var inicio = formataData(document.getElementById('inicio').value.substring(0, 10));
  var termino = formataData(document.getElementById('termino').value.substring(0, 10));
  var idCar = $scope.car.IdVeiculo;
 
- buscarCorrida.getCorridas(inicio,termino,idCar).then(function(corridas){
-  //console.log(corridas);
+ buscarCorrida.getCorridas(inicio,termino,idCar,0,1).then(function(corridas){
 
-  //  if (corridas != null)
   var cont = 0;
 
   $scope.dados = [];
@@ -37,9 +32,6 @@ $scope.search = function(){
 
 
   for (var i = 0; i < corridas.data.length; i++) {
-  //  var deviceDate =corridas.data[i].deviceStartDate.substring(0,10);
-  //alert(deviceDate);
-  //if( (deviceDate >= inicio && deviceDate <= termino) && corridas.data[i].open == true)
 
     if(corridas.data[i].open == true){
       $scope.dados.push ({
@@ -49,10 +41,9 @@ $scope.search = function(){
         kmIn: corridas.data[i].mileage,
         fotoIn: corridas.data[i].photo,
         index: cont
-        //corridas.data[i].deviceStartDate.substring(0, 10)+" - "+corridas.data[i].deviceStartDate.substring(11, 16)
+
       });
 
-    //cont++;
     }
     if(corridas.data[i].open == false){
       $scope.dadosT.push ({
@@ -65,16 +56,15 @@ $scope.search = function(){
     cont++;
     }
   };
-
-
-
+  console.log(corridas);
  });
-};
 
+};
 $scope.coletaDados = function(busca){
   var comeco = busca;
   var posicao = comeco.index;
   var final = $scope.dadosT[posicao];
+  var teste = $scope.dadosT[posicao-1];
 
   $scope.somaKm = final.kmOut - comeco.kmIn;
 
@@ -91,7 +81,7 @@ $scope.coletaDados = function(busca){
     km2: final.kmOut
   }];
 
+  return $scope.coletaDados ? true : false;
 };
-
 
 });

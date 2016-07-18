@@ -1,1 +1,1 @@
-angular.module("syncro", ['ngRoute']);
+angular.module("syncro", []);
