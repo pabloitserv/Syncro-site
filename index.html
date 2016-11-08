@@ -6,57 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Syncro - sistema de busca de corridas</title>
 
-    <link rel="stylesheet" href="css/bootstrap.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="css/estilo.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css" media="screen" title="no title" charset="utf-8"/>
+    <link rel="stylesheet" href="css/estilo.css" media="screen" title="no title" charset="utf-8"/>
+    <link rel="stylesheet" href="css/print.css" media="screen" title="tela de impressão" charset="utf-8"/>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular/angular-route.js"></script>
 
     <script src="js/app.js"></script>
+    <script src="js/print.js"></script>
 
     <script src="js/controllers/syncroCtrl.js"></script>
     <script src="js/controllers/loginCtrl.js"></script>
+    <script src="js/controllers/menuCtrl.js"></script>
+    <script src="js/controllers/relatorioCtrl.js"></script>
+
 
     <script src="js/services/services.js"></script>
 
     <script src="js/config/config.const.js"></script>
+    <script src="js/config/barra.js"></script>
 
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
     <script src="lib/jquery/dist/jquery.js"></script>
     <script src="lib/jquery.maskedinput/dist/jquery.maskedinput.js"></script>
+
+    <script>
+      $(document).ready(function(){
+        $('#inicio').mask('99/99/9999', {reverse: true});
+        $('#termino').mask('99/99/9999');
+      });
+    </script>
+
 </head>
 
-  <body ng-controller="loginCtrl">
-    <div class="container">
-      <div class="center-block">
-        <form class="painel">
-          <table class="table">
-            <tr>
-              <td colspan="2" align="center">
-                <img src="img/logo3.png" alt="" />
-              </td>
-            </tr>
-            <tr>
-              <td>Usuário:</td>
-              <td><input type="text" ng-model="usuario" class="form-control"></td>
-            </tr>
-            <tr>
-              <td>Senha:</td>
-              <td><input type="password" ng-model="senha" class="form-control"></td>
-            </tr>
-            <tr>
-              <td colspan="2"><button type="button" class="btn btn-primary btn-block" ng-click="validarUsuario()">Logar</button></td>
-            </tr>
-          </table>
-        </form>
-      </div>
-    </div>
+  <body>
+
+      <div ng-view></div>
+
   </body>
 </html>

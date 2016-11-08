@@ -1,5 +1,3 @@
-(function() {
-  'use strict';
 
   angular.module('syncro')
 
@@ -11,8 +9,9 @@
           password: $scope.senha
         };
 
-          userServiceToken.postToken(parametros).success(function(chave){
+         userServiceToken.postToken(parametros).success(function(chave){
           var token =chave.token;
+
           userServiceLogin.getLogin(token).success(function(user){
 
               $scope.user = user.value;
@@ -21,6 +20,7 @@
               $scope.usuario = user.value.usuario;
 
               Scopes.store('loginCtrl',$scope);
+    
 
 
               if (user.value != null) {
@@ -30,7 +30,7 @@
                       //$location.path('');
                   }else{
 
-                      window.location.href = 'busca.html';
+                    $location.path('/menu');
 
                     }
               }else{
@@ -45,5 +45,4 @@
                 $scope.message = "Falha na validação do Login" + user;
               });
       }
-  })
-}());
+  });

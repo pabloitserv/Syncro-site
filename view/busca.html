@@ -1,0 +1,85 @@
+
+  <div class="jumbotron">
+    <div class="row">
+      <div class="col-md-6">
+        <img src="img/logo3.png" alt="logo" class="img-responsive center-block" />
+      </div>
+
+      <form class="" name="formulario">
+      <div class="col-md-3">
+
+              <span>Data inicio:<input type="date" class="form-control" id="inicio" ng-model="inicio"/></span>
+              <span>Data Término:<input type="date" class="form-control" id="termino" ng-model="termino"/></span>
+
+              <select class="form-control margem" ng-model="car" ng-options="veiculo.Placa+' - '+veiculo.Modelo for veiculo in lista track by veiculo.IdVeiculo">
+                <option value="">Placa - Modelo</option>
+              </select>
+          <button type="button" class="btn btn-primary btn-block text-center margem" name="button" ng-click="search()">
+            Buscar
+          </button>
+      </div>
+      <div class="col-md-3">
+        <button type="button" class="btn btn-primary btn-xs center-block" ng-click="volta()">Voltar</button>
+      </div>
+    </form>
+    </div>
+    <hr class="style-two" />
+    <button type="button" class="btn btn-info btn-xs center-block margem" onclick="cont()">imprimir</button>
+  </div>
+
+  <div id="myProgress" ng-show="show">
+    <div id="myBar">
+      <div id="label">10%</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h3>Resultado da busca</h3>
+    <div class="" id="print">
+      <table border="0" class="table table-reponsive table-striped text-center">
+        <tr>
+          <legend class="text-center"><strong style="font-weigth: 900; font-size: 1.5em;">{{place}}</strong></legend>
+        </tr>
+        <tr>
+          <th></th>
+          <th class="th_center">Nome:</th>
+          <th class="th_center">Placa/Modelo</th>
+          <th class="th_center">Km</th>
+          <th class="th_center">Data</th>
+          <!--<th class="th_center">Cidade</th>-->
+          <th class="th_center" colspan="2">status</th>
+        </tr>
+        <tr ng-repeat="busca in dados">
+          <td rowspan="2" class="rowsspan" ng-style="busca.situation === false && {'display':'none'}">
+            <button type="button" class="btn btn-info btn-xs btn-position" ng-click="coletaDados(busca)">info &#10071;</button>
+          </td>
+          <td>{{ busca.name | limitTo: 10 }}...&nbsp;&nbsp;</td>
+          <td>{{ busca.car | limitTo: 22 }}...&nbsp;&nbsp;</td>
+          <td>{{ busca.km }}&nbsp;&nbsp;</td>
+          <td>{{ busca.data_atual | date: 'dd/MM/yyyy - HH:mm' }}&nbsp;&nbsp;</td>
+          <!--<td style="color: #505050; font-weight: 900;">{{ busca.city }}&nbsp;&nbsp;</td>-->
+          <td ng-style="busca.situation === true && {'color':'#32cd32', 'font-weight':'900', 'font-size':'1em'} || busca.situation === false && {'display':'none'}">&nbsp;open</td>
+          <td ng-style="busca.situation === false && {'color':'red', 'font-weight':'900', 'font-size':'1em'} || busca.situation === true && {'display':'none'}">&nbsp;close</td>
+        </tr>
+      </table>
+      <table class="table table-responsive table-striped">
+        <caption class="text-center">Dados da corrida</caption>
+        <tr>
+          <td><h4>{{'Km da rota: '+somaKm+' Quilômetro(s)'}}</h4></td>
+          <td><h4>{{'Km extra rota: '+somaKmExtraRota+' Quilômetro(s)'}}</h4></td>
+        </tr>
+        <tr  ng-repeat="fotos in foto">
+          <td>
+            <h4 class="text-center">Imagem inicio</h4>
+            <img src="{{ fotos.imagem1 }}" class="img-thumbnail center-block img-km" />
+            <p class="text-center"><b>Km : {{fotos.km1}}</b></p>
+          </td>
+          <td>
+            <h4 class="text-center">Imagem termino</h4>
+            <img src="{{ fotos.imagem2 }}" class="img-thumbnail center-block img-km" />
+            <p class="text-center"><b>Km : {{fotos.km2}}</b></p>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>

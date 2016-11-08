@@ -1,0 +1,12 @@
+.table{
+  width: 800px !important;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.text-center{
+  text-align: center;
+}
+.cor_1{color: gray;}
+.cor_2{color: red;}
+.fundo{background-color: #f1f1f1;}
